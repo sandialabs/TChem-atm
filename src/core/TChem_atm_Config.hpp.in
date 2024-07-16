@@ -1,0 +1,25 @@
+#ifndef __TCHEM_CONFIG_H__
+#define __TCHEM_CONFIG_H__
+
+#include "Tines_Config.hpp"
+
+/// tchem control
+#cmakedefine TCHEM_ATM_ENABLE_REAL_TYPE_SINGLE_PRECISION
+#cmakedefine TCHEM_ATM_ENABLE_REAL_TYPE_DOUBLE_PRECISION
+#cmakedefine TCHEM_ATM_ENABLE_VERBOSE
+#cmakedefine TCHEM_ATM_ENABLE_DEBUG
+#cmakedefine TCHEM_ATM_ENABLE_SKYWALKER
+
+/// reactor specific control for sacado jaobians
+#cmakedefine TCHEM_ATM_ENABLE_SACADO_JACOBIAN_ATMOSPHERIC_CHEMISTRY
+
+/// required libraries
+#cmakedefine TCHEM_ATM_ENABLE_TPL_KOKKOS
+#cmakedefine TCHEM_ATM_ENABLE_TPL_TINES
+#cmakedefine TCHEM_ATM_ENABLE_TPL_BOOST
+
+#if defined (TINES_ENABLE_TPL_YAML)
+#define TCHEM_ATM_ENABLE_TPL_YAML_CPP
+#endif
+
+#endif

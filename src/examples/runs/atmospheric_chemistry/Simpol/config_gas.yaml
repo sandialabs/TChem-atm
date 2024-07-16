@@ -1,0 +1,35 @@
+NCAR-version: v1.0
+environmental_conditions:
+  pressure:
+    evolving: false
+    initial_value: [101253.3]
+    units: Pa
+  temperature:
+    evolving: false
+    initial_value: [272.5]
+    units: K
+initial_state:
+  ethanol:
+    initial_value: [0.1]
+  M:
+    initial_value: [0.0]
+model_info:
+  chemistry_time_step:
+    units: sec
+    value: 1.0
+  evolving_conditions:
+    exist: false
+  output_time_step:
+    units: sec
+    value: 1.0
+  simulation_length:
+    units: sec
+    value: 100.0
+  cells: 5
+reactions:
+constant_species:
+- description: tracer-CONSTANT
+  name: M
+species:
+- description: ETHANOL
+  name: ethanol

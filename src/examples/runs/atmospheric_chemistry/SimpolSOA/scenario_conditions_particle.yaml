@@ -1,0 +1,6 @@
+particles:
+  initial_state:
+    POA:
+      initial_value: [1e-08]
+  num_concentration:
+    initial_value: [1000000.0]

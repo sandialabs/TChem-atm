@@ -1,0 +1,92 @@
+NCAR-version: v1.0
+environmental_conditions:
+  pressure:
+    evolving: 'false'
+    initial_value: [101253.3]
+    units: Pa
+  temperature:
+    evolving: 'false'
+    initial_value: [272.5]
+    units: K
+model_info:
+  chemistry_time_step:
+    units: min
+    value: 1.0
+  evolving_conditions:
+    exist: 'false'
+  output_time_step:
+    units: min
+    value: 1.0
+  simulation_length:
+    units: hr
+    value: 3.0
+initial_state:
+  OH:
+    initial_value: [0.25]
+    units: mol m-3
+  O3:
+    initial_value: [0.25]
+    units: mol m-3
+  ISOP:
+    initial_value: [0.25]
+    units: mol m-3
+  TERP:
+    initial_value: [0.25]
+    units: mol m-3
+constant_species:
+- description: M
+  name: M
+species:
+- description: gas-phase product from isoprene oxidation by OH
+  name: ISOP-P1
+- description: gas-phase product from isoprene oxidation by O3
+  name: ISOP-P2
+- description: gas-phase product from monoterpene oxidation by OH
+  name: TERP-P1
+- description: gas-phase product from monoterpene oxidation by O3
+  name: TERP-P2
+- description: OH
+  name: OH
+- description: O3
+  name: O3
+- description: ISOP
+  name: ISOP
+- description: TERP
+  name: TERP
+reactions:
+- type: ARRHENIUS
+  reactants:
+    OH: 1
+    ISOP: 1
+  products:
+    ISOP-P1: 0.192
+  coefficients:
+    A: 2.54e-11
+    C: 407.6
+- type: ARRHENIUS
+  reactants:
+    O3: 1
+    ISOP: 1
+  products:
+    ISOP-P2: 0.215
+  coefficients:
+    A: 7.86e-15
+    C: -1912.0
+- type: ARRHENIUS
+  reactants:
+    OH: 1
+    TERP: 1
+  products:
+    TERP-P1: 0.0288
+  coefficients:
+    A: 1.5e-11
+    C: 449.0
+- type: ARRHENIUS
+  reactants:
+    O3: 1
+    TERP: 1
+  products:
+    TERP-P2: 0.232
+  coefficients:
+    A: 1.2e-15
+    C: -821.0

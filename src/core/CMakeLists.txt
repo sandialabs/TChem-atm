@@ -1,0 +1,53 @@
+FILE(GLOB TCHEM_ATM_HDR "*.hpp"
+                    "impl/*.hpp"
+                    "problems/*.hpp"
+                    "strat_chem_solve/*.hpp"
+                    "strat_chem_solve/impl/*.hpp"
+)
+
+FILE(GLOB TCHEM_ATM_SRC "*.cpp"  "strat_chem_solve/*.cpp")
+
+ADD_LIBRARY(tchem_atm STATIC ${TCHEM_ATM_SRC})
+IF (TCHEM_ATM_ENABLE_SHARED_BUILD)
+  SET_PROPERTY(TARGET tchem_atm PROPERTY POSITION_INDEPENDENT_CODE ON)
+ENDIF()
+
+TARGET_LINK_LIBRARIES(tchem_atm
+  ${TCHEM_ATM_INTERNAL_KOKKOS_TARGET}
+  ${TCHEM_ATM_INTERNAL_TINES_TARGET}
+)
+
+TARGET_INCLUDE_DIRECTORIES(tchem_atm
+  PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/impl>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/problems>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/strat_chem_solve>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/strat_chem_solve/impl>
+  $<INSTALL_INTERFACE:${TCHEM_ATM_INSTALL_INCLUDE_PATH}>
+)
+
+IF(TCHEM_ATM_ENABLE_INSTALL)
+  INSTALL(TARGETS tchem_atm
+    EXPORT tchem_atm-targets
+    LIBRARY DESTINATION "${TCHEM_ATM_INSTALL_LIB_PATH}"
+    ARCHIVE DESTINATION "${TCHEM_ATM_INSTALL_LIB_PATH}"
+  )
+
+  INSTALL(FILES ${TCHEM_ATM_HDR}
+    DESTINATION "${TCHEM_ATM_INSTALL_INCLUDE_PATH}"
+  )
+
+  INSTALL(EXPORT tchem_atm-targets
+    DESTINATION "${TCHEM_ATM_INSTALL_LIB_PATH}/cmake/TChem_atm"
+    NAMESPACE TChem_atm::
+  )
+
+  CONFIGURE_PACKAGE_CONFIG_FILE("../cmake/TChem_atm_Config.cmake.in" "${CMAKE_CURRENT_BINARY_DIR}/TChem_atm_Config.cmake"
+    INSTALL_DESTINATION "${TCHEM_ATM_INSTALL_LIB_PATH}/cmake/TChem_atm"
+  )
+
+  INSTALL(FILES "${CMAKE_CURRENT_BINARY_DIR}/TChem_atm_Config.cmake"
+    DESTINATION "${TCHEM_ATM_INSTALL_LIB_PATH}/cmake/TChem_atm"
+  )
+ENDIF()

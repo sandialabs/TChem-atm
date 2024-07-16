@@ -1,0 +1,8 @@
+particles:
+  initial_state:
+    ethanol_aq: 
+      initial_value: [1.0e-8]
+    H2O_aq: 
+      initial_value: [1.4e-2]
+  num_concentration:
+   initial_value: [1.3e6]     
