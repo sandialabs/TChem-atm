@@ -1,0 +1,103 @@
+NCAR-version: v1.0
+model_info:
+  chemistry_time_step:
+    units: min
+    value: 1.0
+  evolving_conditions:
+    exist: 'false'
+  output_time_step:
+    units: min
+    value: 1.0
+  simulation_length:
+    units: hr
+    value: 3.0
+reactions:
+- coefficients:
+    A: 1.286e-07
+    C: 0
+  type: ARRHENIUS
+  id: '87'
+  reactants:
+    E90: 1
+  products: {}
+- coefficients:
+    A: 9.6e-12
+    C: -234
+  type: ARRHENIUS
+  adjust_reaction:
+  - M
+  id: '88'
+  reactants:
+    DMS: 1
+    OH: 1
+  products:
+    SO2: 1
+- coefficients:
+    k0_A: 3.57e-43
+    k0_B: 0
+    k0_C: 7810
+    Fc: 1
+    kinf_A: 3.0909090909090913e-12
+    kinf_B: 0
+    kinf_C: 350
+  type: JPL
+  note: usr_DMS_OH
+  adjust_reaction:
+  - M
+  - M
+  id: '89'
+  reactants:
+    DMS: 1
+    OH: 1
+  products:
+    SO2: 0.5
+    HO2: 0.5
+- coefficients:
+    k0_A: 3e-31
+    k0_B: -3.3
+    k0_C: 0
+    Fc: 0.6
+    N: 1.0
+    kinf_A: 1.5e-12
+    kinf_B: 0
+    kinf_C: 0
+  type: JPL
+  note: usr_SO2_OH
+  adjust_reaction:
+  - M
+  - M
+  id: '90'
+  reactants:
+    SO2: 1
+    OH: 1
+  products:
+    H2SO4: 1
+- coefficients:
+    A: 1.9e-13
+    C: 520
+  type: ARRHENIUS
+  adjust_reaction:
+  - M
+  id: '91'
+  reactants:
+    DMS: 1
+    NO3: 1
+  products:
+    SO2: 1
+    HNO3: 1
+species:
+- description: ''
+  name: E90
+- description: ''
+  name: DMS
+- description: ''
+  name: SO2
+- description: ''
+  name: H2SO4
+constant_species:
+- description: ''
+  name: OH
+- description: ''
+  name: NO3
+- description: invariant species
+  name: M

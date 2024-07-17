@@ -1,0 +1,312 @@
+NCAR-version: v1.0
+environmental_conditions:
+  pressure:
+    units: Pa
+    initial_value: [49400.61649319692]
+  temperature:
+    units: K
+    initial_value: [268.4789816888424]
+model_info:
+  chemistry_time_step:
+    units: min
+    value: 1.0
+  evolving_conditions:
+    exist: 'false'
+  output_time_step:
+    units: min
+    value: 1.0
+  simulation_length:
+    units: hr
+    value: 3.0
+initial_state:
+  O3:
+    initial_value: [1.8293781679977127e-08]
+    units: mol m-3
+  OH:
+    initial_value: [4.4093986329649673e-13]
+    units: mol m-3
+  HO2:
+    initial_value: [2.0262831270359995e-11]
+    units: mol m-3
+  H2O2:
+    initial_value: [2.677666013833127e-10]
+    units: mol m-3
+  CH2O:
+    initial_value: [2.62856364508683e-10]
+    units: mol m-3
+  CH3O2:
+    initial_value: [2.402495339393193e-11]
+    units: mol m-3
+  CH3OOH:
+    initial_value: [5.862617079397101e-10]
+    units: mol m-3
+  NO:
+    initial_value: [6.959729988188713e-12]
+    units: mol m-3
+  NO2:
+    initial_value: [4.653663398826134e-12]
+    units: mol m-3
+  NO3:
+    initial_value: [1.0784520294421088e-16]
+    units: mol m-3
+  N2O5:
+    initial_value: [2.1222088673751965e-17]
+    units: mol m-3
+  HNO3:
+    initial_value: [8.330271709695266e-12]
+    units: mol m-3
+  HO2NO2:
+    initial_value: [1.0892505772352609e-12]
+    units: mol m-3
+  PAN:
+    initial_value: [1.0729788866946249e-10]
+    units: mol m-3
+  CO:
+    initial_value: [7.77226449617103e-08]
+    units: mol m-3
+  C2H6:
+    initial_value: [2.9475807291423165e-10]
+    units: mol m-3
+  C3H8:
+    initial_value: [1.8943872660464735e-11]
+    units: mol m-3
+  C2H4:
+    initial_value: [3.625726429155284e-11]
+    units: mol m-3
+  ROHO2:
+    initial_value: [3.414701128594391e-13]
+    units: mol m-3
+  CH3COCH3:
+    initial_value: [3.006145968744844e-10]
+    units: mol m-3
+  C2H5O2:
+    initial_value: [1.432916004679793e-12]
+    units: mol m-3
+  C2H5OOH:
+    initial_value: [2.125121274539277e-10]
+    units: mol m-3
+  CH3CHO:
+    initial_value: [1.7001669857620075e-10]
+    units: mol m-3
+  CH3CO3:
+    initial_value: [1.3229300034564728e-12]
+    units: mol m-3
+  ISOP:
+    initial_value: [1.4375484573039858e-11]
+    units: mol m-3
+  ISOP_VBS:
+    initial_value: [7.860747231441955e-12]
+    units: mol m-3
+  ISOPO2:
+    initial_value: [1.1245906594288776e-12]
+    units: mol m-3
+  C10H16:
+    initial_value: [6.073389268731329e-13]
+    units: mol m-3
+  MVKMACR:
+    initial_value: [2.4498025115291077e-11]
+    units: mol m-3
+  MVKO2:
+    initial_value: [5.126449151196868e-13]
+    units: mol m-3
+  E90:
+    initial_value: [1.195660963407875e-07]
+    units: mol m-3
+  N2OLNZ:
+    initial_value: [3.0811764627255913e-07]
+    units: mol m-3
+  NOYLNZ:
+    initial_value: [9.729040820646985e-11]
+    units: mol m-3
+  CH4LNZ:
+    initial_value: [1.6474737458707118e-06]
+    units: mol m-3
+  H2OLNZ:
+    initial_value: [0.008720515980121907]
+    units: mol m-3
+  DMS:
+    initial_value: [1.8113377594480444e-11]
+    units: mol m-3
+  SO2:
+    initial_value: [2.1726843608777972e-11]
+    units: mol m-3
+  H2SO4:
+    initial_value: [3.0209315810746555e-13]
+    units: mol m-3
+  SOAG0:
+    initial_value: [3.279614896168294e-14]
+    units: mol m-3
+  SOAG15:
+    initial_value: [7.678104774994293e-14]
+    units: mol m-3
+  SOAG24:
+    initial_value: [1.4049602838317962e-13]
+    units: mol m-3
+  SOAG31:
+    initial_value: [3.456222154319294e-13]
+    units: mol m-3
+  SOAG32:
+    initial_value: [1.3849005105021758e-12]
+    units: mol m-3
+  SOAG33:
+    initial_value: [3.888889055303752e-12]
+    units: mol m-3
+  SOAG34:
+    initial_value: [6.01128652534899e-12]
+    units: mol m-3
+  SOAG35:
+    initial_value: [1.1062481945734281e-11]
+    units: mol m-3
+  so4_a1:
+    initial_value: [1.2942141109839397e-11]
+    units: mol m-3
+  so4_a2:
+    initial_value: [1.925722712684526e-12]
+    units: mol m-3
+  so4_a3:
+    initial_value: [1.2680710263092438e-12]
+    units: mol m-3
+  so4_a5:
+    initial_value: [1.0076134952619501e-14]
+    units: mol m-3
+  pom_a1:
+    initial_value: [5.945186825017888e-12]
+    units: mol m-3
+  pom_a3:
+    initial_value: [1.023455340093086e-12]
+    units: mol m-3
+  pom_a4:
+    initial_value: [2.291142996657735e-13]
+    units: mol m-3
+  soa_a1:
+    initial_value: [1.5471282599635905e-11]
+    units: mol m-3
+  soa_a2:
+    initial_value: [4.538658751279464e-12]
+    units: mol m-3
+  soa_a3:
+    initial_value: [6.618910221205235e-13]
+    units: mol m-3
+  bc_a1:
+    initial_value: [1.2233325414133566e-12]
+    units: mol m-3
+  bc_a3:
+    initial_value: [2.0945019793370838e-13]
+    units: mol m-3
+  bc_a4:
+    initial_value: [5.841955434233235e-14]
+    units: mol m-3
+  dst_a1:
+    initial_value: [5.37188772111898e-14]
+    units: mol m-3
+  dst_a3:
+    initial_value: [4.401602534627499e-13]
+    units: mol m-3
+  ncl_a1:
+    initial_value: [2.3320217800967257e-12]
+    units: mol m-3
+  ncl_a2:
+    initial_value: [2.142317445647157e-15]
+    units: mol m-3
+  ncl_a3:
+    initial_value: [2.80956916189911e-11]
+    units: mol m-3
+  mom_a1:
+    initial_value: [1.9475718313319084e-16]
+    units: mol m-3
+  mom_a2:
+    initial_value: [2.0400491932619722e-19]
+    units: mol m-3
+  mom_a3:
+    initial_value: [2.4743590798735878e-17]
+    units: mol m-3
+  mom_a4:
+    initial_value: [2.045706484056917e-22]
+    units: mol m-3
+  num_a1:
+    initial_value: [4640875804.206739]
+    units: mol m-3
+  num_a2:
+    initial_value: [12846180887.224546]
+    units: mol m-3
+  num_a3:
+    initial_value: [141313.6736914397]
+    units: mol m-3
+  num_a4:
+    initial_value: [5086064.045316137]
+    units: mol m-3
+  num_a5:
+    initial_value: [34096.50807095708]
+    units: mol m-3
+  M:
+    initial_value: [1.3327186632083833e+19]
+    units: mol m-3
+  N2:
+    initial_value: [0.7900000000000001]
+    units: mol m-3
+  O2:
+    initial_value: [0.21]
+    units: mol m-3
+  H2O:
+    initial_value: [0.008721245084511647]
+    units: mol m-3
+  H2:
+    initial_value: [5.5e-07]
+    units: mol m-3
+  CH4:
+    initial_value: [0.0]
+    units: mol m-3
+  prsd_O3:
+    initial_value: [3.111323222853703e-08]
+    units: mol m-3
+  prsd_NO3:
+    initial_value: [3.55039874959765e-13]
+    units: mol m-3
+  prsd_OH:
+    initial_value: [1.552033192483031e-13]
+    units: mol m-3
+photolysis_rates:
+  r_0:
+    value: [9.674220013408697e-05]
+  r_1:
+    value: [0.0]
+  r_2:
+    value: [1.2054654072168807e-05]
+  r_3:
+    value: [6.001333557107594e-05]
+  r_4:
+    value: [8.160538029094686e-05]
+  r_5:
+    value: [9.60305837420712e-06]
+  r_6:
+    value: [9.60305837420712e-06]
+  r_7:
+    value: [0.012749377729839435]
+  r_8:
+    value: [0.20571645167884214]
+  r_9:
+    value: [0.01138950466953352]
+  r_10:
+    value: [6.6383153269595e-05]
+  r_11:
+    value: [1.4709568408265561e-08]
+  r_12:
+    value: [1.3780971392629708e-06]
+  r_13:
+    value: [2.6311984305675277e-06]
+  r_14:
+    value: [2.0831516970452935e-05]
+  r_15:
+    value: [2.223510186973159e-05]
+  r_16:
+    value: [1.2652060140306552e-06]
+  r_17:
+    value: [1.927046279681114e-06]
+  r_18:
+    value: [1.3341935219499111e-05]
+  r_19:
+    value: [5.099751091935774e-06]
+  r_20:
+    value: [5.099751091935774e-06]
+  r_21:
+    value: [5.099751091935774e-06]
