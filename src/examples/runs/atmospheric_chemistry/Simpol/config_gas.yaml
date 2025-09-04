@@ -11,8 +11,10 @@ environmental_conditions:
 initial_state:
   ethanol:
     initial_value: [0.1]
-  M:
+    units: mol m-3
+  M: 
     initial_value: [0.0]
+    units: mol m-3
 model_info:
   chemistry_time_step:
     units: sec

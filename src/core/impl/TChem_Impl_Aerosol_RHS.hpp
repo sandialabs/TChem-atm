@@ -1,9 +1,9 @@
 /* =====================================================================================
-TChem-atm version 1.0
-Copyright (2024) NTESS
+TChem-atm version 2.0.0
+Copyright (2025) NTESS
 https://github.com/sandialabs/TChem-atm
 
-Copyright 2024 National Technology & Engineering Solutions of Sandia, LLC
+Copyright 2025 National Technology & Engineering Solutions of Sandia, LLC
 (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
 Government retains certain rights in this software.
 
@@ -13,8 +13,9 @@ it and/or modify it under the terms of BSD 2-Clause License
 provided under the main directory
 
 Questions? Contact Oscar Diaz-Ibarra at <odiazib@sandia.gov>, or
-           Mike Schmidt at <mjschm@sandia.gov>, or
-           Cosmin Safta at <csafta@sandia.gov>
+           Cosmin Safta at <csafta@sandia.gov> or,
+           Nicole Riemer at <nriemer@illinois.edu> or,
+           Matthew West at <mwest@illinois.edu>
 
 Sandia National Laboratories, New Mexico/Livermore, NM/CA, USA
 =====================================================================================
@@ -68,7 +69,7 @@ struct Aerosol_RHS
   {
    // set omega(rhs) to zero, because we are using Kokkos::atomic_add.
     Kokkos::parallel_for(
-      Kokkos::TeamThreadRange(member, omega.extent(0)),
+      Kokkos::TeamVectorRange(member, omega.extent(0)),
        [&](const ordinal_type& i) {
       omega(i) = 0.0;
     });
@@ -84,10 +85,10 @@ struct Aerosol_RHS
                          work,
                          kmcd);
     // 2. update RHS of gas and aerosol species
-    member.team_barrier();
+    // member.team_barrier();
     using SIMPOL_single_particle_type = TChem::Impl::SIMPOL_single_particle<real_type, device_type >;
     Kokkos::parallel_for(
-      Kokkos::TeamThreadRange(member, amcd.nParticles),
+      Kokkos::TeamVectorRange(member, amcd.nParticles),
        [&](const ordinal_type& i_part) {
     for (size_t i_simpol = 0; i_simpol < amcd.nSimpol_tran; i_simpol++)
     {

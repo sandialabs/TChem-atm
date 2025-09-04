@@ -1,9 +1,9 @@
 /* =====================================================================================
-TChem-atm version 1.0
-Copyright (2024) NTESS
+TChem-atm version 2.0.0
+Copyright (2025) NTESS
 https://github.com/sandialabs/TChem-atm
 
-Copyright 2024 National Technology & Engineering Solutions of Sandia, LLC
+Copyright 2025 National Technology & Engineering Solutions of Sandia, LLC
 (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
 Government retains certain rights in this software.
 
@@ -13,8 +13,9 @@ it and/or modify it under the terms of BSD 2-Clause License
 provided under the main directory
 
 Questions? Contact Oscar Diaz-Ibarra at <odiazib@sandia.gov>, or
-           Mike Schmidt at <mjschm@sandia.gov>, or
-           Cosmin Safta at <csafta@sandia.gov>
+           Cosmin Safta at <csafta@sandia.gov> or,
+           Nicole Riemer at <nriemer@illinois.edu> or,
+           Matthew West at <mwest@illinois.edu>
 
 Sandia National Laboratories, New Mexico/Livermore, NM/CA, USA
 =====================================================================================
@@ -35,13 +36,13 @@ namespace Impl {
 #if defined(TINES_ENABLE_TPL_SUNDIALS)
 #include "Tines_Interface.hpp"
 
-    static int ProblemAerosolChemistry_ComputeFunctionCVODE(realtype t,
+    static int ProblemAerosolChemistry_ComputeFunctionCVODE(sunrealtype t,
                N_Vector u,
                N_Vector f,
                void *user_data) {
       using host_device_type = Tines::UseThisDevice<Kokkos::Serial>::type;
-      using problem_type = AerosolChemistry_Problem<realtype,host_device_type>;
-      using realtype_1d_view_type = Tines::value_type_1d_view<realtype, host_device_type>;
+      using problem_type = AerosolChemistry_Problem<sunrealtype,host_device_type>;
+      using realtype_1d_view_type = Tines::value_type_1d_view<sunrealtype, host_device_type>;
 
       problem_type * problem = (problem_type*)(user_data);
       TINES_CHECK_ERROR(problem == nullptr, "user data is failed to cast to problem type");
@@ -49,8 +50,8 @@ namespace Impl {
       int m = problem->getNumberOfEquations();
       const auto member = Tines::HostSerialTeamMember();
 
-      realtype * u_data = N_VGetArrayPointer_Serial(u);
-      realtype * f_data = N_VGetArrayPointer_Serial(f);
+      sunrealtype * u_data = N_VGetArrayPointer_Serial(u);
+      sunrealtype * f_data = N_VGetArrayPointer_Serial(f);
 
       realtype_1d_view_type uu(u_data, m);
       realtype_1d_view_type ff(f_data, m);
@@ -59,16 +60,16 @@ namespace Impl {
       return 0;
     }
 
-    static int ProblemAerosolChemistry_ComputeJacobianCVODE(realtype t,
+    static int ProblemAerosolChemistry_ComputeJacobianCVODE(sunrealtype t,
                N_Vector u,
                N_Vector f,
                SUNMatrix J,
                void *user_data,
                N_Vector tmp1, N_Vector tmp2, N_Vector tmp3) {
       using host_device_type = Tines::UseThisDevice<Kokkos::Serial>::type;
-      using problem_type = AerosolChemistry_Problem<realtype,host_device_type>;
-      using realtype_1d_view_type = Tines::value_type_1d_view<realtype, host_device_type>;
-      using realtype_2d_view_type = Tines::value_type_2d_view<realtype, host_device_type>;
+      using problem_type = AerosolChemistry_Problem<sunrealtype,host_device_type>;
+      using realtype_1d_view_type = Tines::value_type_1d_view<sunrealtype, host_device_type>;
+      using realtype_2d_view_type = Tines::value_type_2d_view<sunrealtype, host_device_type>;
 
       problem_type * problem = (problem_type*)(user_data);;
       TINES_CHECK_ERROR(problem == nullptr, "user data is failed to cast to problem type");
@@ -76,7 +77,7 @@ namespace Impl {
       int m = problem->getNumberOfEquations();
       const auto member = Tines::HostSerialTeamMember();
 
-      realtype * u_data = N_VGetArrayPointer_Serial(u);
+      sunrealtype * u_data = N_VGetArrayPointer_Serial(u);
 
       realtype_1d_view_type uu(u_data, m);
       realtype_2d_view_type JJ(problem->_work_cvode.data(), m, m);

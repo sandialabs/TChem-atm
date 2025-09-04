@@ -1,9 +1,9 @@
 /* =====================================================================================
 TChem_atm version 2.0
-Copyright (2024) NTESS
+Copyright (2025) NTESS
 https://github.com/sandialabs/TChem-atm
 
-Copyright 2024 National Technology & Engineering Solutions of Sandia, LLC
+Copyright 2025 National Technology & Engineering Solutions of Sandia, LLC
 (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
 Government retains certain rights in this software.
 
@@ -13,8 +13,9 @@ redistribute it and/or modify it under the terms of BSD 2-Clause License
 provided under the main directory
 
 Questions? Contact Oscar Diaz-Ibarra at <odiazib@sandia.gov>, or
-           Mike Schmidt at <mjschm@sandia.gov>, or
-           Cosmin Safta at <csafta@sandia.gov>
+           Cosmin Safta at <csafta@sandia.gov> or,
+           Nicole Riemer at <nriemer@illinois.edu> or,
+           Matthew West at <mwest@illinois.edu>
 
 Sandia National Laboratories, New Mexico/Livermore, NM/CA, USA
 =====================================================================================
@@ -53,7 +54,7 @@ int main(int argc, char *argv[]) {
   int num_time_iterations_per_interval(1e1), max_num_time_iterations(1e3),
       max_num_newton_iterations(100), jacobian_interval(1);
   real_type atol_time(1e-12);
-  int nBatch(1), team_size(-1), vector_size(-1);
+  int nBatch(1), team_size(-1), vector_size(-1), number_of_particles(-1);
   std::string outputFileTimes("wall_times.json");
   bool verbose(true);
   std::string chemFile("chem.yaml");
@@ -62,7 +63,10 @@ int main(int argc, char *argv[]) {
   std::string inputFile("None");
   std::string input_file_particles("None");
   bool use_cloned_samples(false);
-  bool use_cvode(false);
+  // For scaling studies, we must execute this example many times.
+  // Thus, we do not want to write the solution to a file.
+  // In those cases, we pass write_time_profiles false.
+  bool write_time_profiles(true);
   /// parse command line arguments
   TChem::CommandLineParser opts(
       "This example computes the solution of gas chemistry problem");
@@ -105,16 +109,18 @@ int main(int argc, char *argv[]) {
                        &max_num_newton_iterations);
   opts.set_option<bool>(
       "verbose", "If true, printout the first Jacobian values", &verbose);
+
   opts.set_option<int>("team_thread_size", "time thread size ", &team_size);
   opts.set_option<int>("batch_size", " number of batches or samples, e.g. 10  ", &nBatch);
   opts.set_option<int>("vector_thread_size", "vector thread size ",
                        &vector_size);
+  opts.set_option<int>("number_of_particles", "Set the number of particles; this will overwrite the value from the input file. ", &number_of_particles);
+
   opts.set_option<real_type>("atol-time", "Absolute tolerance used for adaptive time stepping", &atol_time);
   opts.set_option<bool>(
       "use_cloned_samples", "If true, one state vector will be cloned.", &use_cloned_samples);
-  opts.set_option<bool>("use-cvode",
-      "if true code runs ignition zero d reactor with cvode; otherwise, it uses TrBDF2",
-      &use_cvode);
+  opts.set_option<bool>(
+      "write-time-profiles", "If true, this example will write the time profile output to a file.", &write_time_profiles);
 
   const bool r_parse = opts.parse(argc, argv);
   if (r_parse)
@@ -146,6 +152,9 @@ int main(int argc, char *argv[]) {
 
     printf("amd parsing ...\n");
     TChem::AerosolModelData amd(aeroFile, kmd);
+    if(number_of_particles > 0) {
+      amd.setNumberofParticles(number_of_particles);
+    }
     const auto amcd = TChem::create_AerosolModelConstData<host_device_type>(amd);
 
     const ordinal_type total_n_species =kmcd.nSpec + amcd.nSpec * amcd.nParticles;
@@ -163,23 +172,26 @@ int main(int argc, char *argv[]) {
     const auto speciesNamesHost = Kokkos::create_mirror_view(kmcd.speciesNames);
     Kokkos::deep_copy(speciesNamesHost, kmcd.speciesNames);
 
-    FILE *fout = fopen(outputFile.c_str(), "w");
+    FILE *fout;
+    if (write_time_profiles) {
+      fout = fopen(outputFile.c_str(), "w");
+    }
     // read scenario condition from yaml file
-   // read scenario condition from yaml file
+    // read scenario condition from yaml file
     real_type_2d_view_host state_scenario_host;
-    ordinal_type nbacth_files=1;
+    ordinal_type nbatch_files=1;
     printf("conditions parsing ...\n");
     TChem::AtmChemistry::setScenarioConditions(inputFile,
-     speciesNamesHost, kmcd.nSpec, stateVecDim, state_scenario_host, nbacth_files);
+     speciesNamesHost, kmcd.nSpec, stateVecDim, state_scenario_host, nbatch_files);
     const ordinal_type n_active_vars = total_n_species - kmcd.nConstSpec;
     printf("Number of const species %d \n", kmcd.nConstSpec);
 
-    real_type_2d_view_host num_concentration;
-    amd.scenarioConditionParticles(input_file_particles, nBatch, num_concentration, state_scenario_host);
+    real_type_2d_view_host num_concentration_scenario, num_concentration;
+    amd.scenarioConditionParticles(input_file_particles, nbatch_files, num_concentration_scenario, state_scenario_host);
 
     real_type_2d_view_host state;
-    if (nbacth_files == 1 && use_cloned_samples && nBatch > 1) {
-      // only clone samples if nbacth_files is 1
+    if (nbatch_files == 1 && use_cloned_samples && nBatch > 1) {
+      // only clone samples if nbatch_files is 1
       printf("-------------------------------------------------------\n");
       printf("--------------------Warning----------------------------\n");
       printf("Using cloned samples ... only for numerical experiments\n");
@@ -188,11 +200,23 @@ int main(int argc, char *argv[]) {
       auto state_host_at_0 = Kokkos::subview(state, 0, Kokkos::ALL);
       Kokkos::deep_copy(state_host_at_0, state_scenario_host_at_0);
       TChem::Test::cloneView(state);
+
+      //scenario particles
+      auto num_concentration_host_at_0 = Kokkos::subview(num_concentration_scenario, 0, Kokkos::ALL);
+      num_concentration = real_type_2d_view_host("num_concentration", nBatch, amd.nParticles_);
+      auto num_concentration_at_0 = Kokkos::subview(num_concentration, 0, Kokkos::ALL);
+      Kokkos::deep_copy(num_concentration_at_0, num_concentration_host_at_0);
+      TChem::Test::cloneView(num_concentration);
+
     } else {
-      nBatch = nbacth_files;
+      nBatch = nbatch_files;
       state = state_scenario_host;
+
+      // scenario particles
+      num_concentration = real_type_2d_view_host("num_concentration", nBatch, amd.nParticles_);
+      Kokkos::deep_copy(num_concentration, num_concentration_scenario);
     }
-    printf("Number of nbacth %d \n",nBatch);
+    printf("Number of nbatch %d \n",nBatch);
     auto writeState = [](const ordinal_type iter,
                          const real_type_1d_view_host _t,
                          const real_type_1d_view_host _dt,
@@ -225,10 +249,10 @@ int main(int argc, char *argv[]) {
     fprintf(fout_times, " \"Aerosol Chemistry\": \n {\n");
 
     {
-      const auto exec_space_instance = TChem::exec_space();
+      const auto exec_space_instance = TChem::host_exec_space();
 
       using policy_type =
-          typename TChem::UseThisTeamPolicy<TChem::exec_space>::type;
+          typename TChem::UseThisTeamPolicy<TChem::host_exec_space>::type;
 
       /// team policy
       policy_type policy(exec_space_instance, nBatch, Kokkos::AUTO());
@@ -236,11 +260,10 @@ int main(int argc, char *argv[]) {
     using time_integrator_cvode_type = Tines::TimeIntegratorCVODE<real_type,host_device_type>;
     Tines::value_type_1d_view<time_integrator_cvode_type,host_device_type> cvodes;
 
-    if (use_cvode) {
-      cvodes = Tines::value_type_1d_view<time_integrator_cvode_type,host_device_type>("cvodes", nBatch);
-      for (ordinal_type i=0;i<nBatch;++i)
+
+    cvodes = Tines::value_type_1d_view<time_integrator_cvode_type,host_device_type>("cvodes", nBatch);
+    for (ordinal_type i=0;i<nBatch;++i)
         cvodes(i).create(n_active_vars);
-    }
 
         ordinal_type number_of_equations(0);
 
@@ -298,33 +321,32 @@ int main(int argc, char *argv[]) {
 
         ordinal_type iter = 0;
 
-        fprintf(fout, "%s \t %s \t %s \t ", "iter", "t", "dt");
-        fprintf(fout, "%s \t %s \t %s \t", "Density[kg/m3]", "Pressure[Pascal]",
+        if (write_time_profiles) {
+          fprintf(fout, "%s \t %s \t %s \t ", "iter", "t", "dt");
+          fprintf(fout, "%s \t %s \t %s \t", "Density[kg/m3]", "Pressure[Pascal]",
                 "Temperature[K]");
 
-        for (ordinal_type k = 0; k < kmcd.nSpec; k++)
-          fprintf(fout, "%s \t", &speciesNamesHost(k, 0));
-        //given aero idx return species name
-        std::map<int, std::string> aero_idx_sp_name;
-        for (std::map<std::string, int>::iterator
-           i = amd.aerosol_sp_name_idx_.begin();
-          i != amd.aerosol_sp_name_idx_.end(); ++i)
-          aero_idx_sp_name[i->second] = i->first;
-
-        for (ordinal_type ipart = 0; ipart < amd.nParticles_; ipart++)
-        {
-          for (ordinal_type isp = 0; isp < amd.nSpec_; isp++)
+          for (ordinal_type k = 0; k < kmcd.nSpec; k++)
+            fprintf(fout, "%s \t", &speciesNamesHost(k, 0));
+          //given aero idx return species name
+          std::map<int, std::string> aero_idx_sp_name;
+          for (std::map<std::string, int>::iterator
+             i = amd.aerosol_sp_name_idx_.begin();
+            i != amd.aerosol_sp_name_idx_.end(); ++i)
+            aero_idx_sp_name[i->second] = i->first;
+          for (ordinal_type ipart = 0; ipart < amd.nParticles_; ipart++)
           {
-            // std::cout << "species Name : "<< aero_idx_sp_name[i] << "\n";
-            auto aero_sp_name = aero_idx_sp_name[isp]+"_p"+std::to_string(ipart);
-            fprintf(fout, "%s \t", aero_sp_name.c_str());
-          }// isp
-        }// ipar
+            for (ordinal_type isp = 0; isp < amd.nSpec_; isp++)
+            {
+              // std::cout << "species Name : "<< aero_idx_sp_name[i] << "\n";
+              auto aero_sp_name = aero_idx_sp_name[isp]+"_p"+std::to_string(ipart);
+              fprintf(fout, "%s \t", aero_sp_name.c_str());
+            }// isp
+          }// ipar
 
-
-
-        fprintf(fout, "\n");
-        writeState(-1, t, dt, state, fout);
+          fprintf(fout, "\n");
+          writeState(-1, t, dt, state, fout);
+        }// write_time_profiles
 
         real_type tsum(0);
         Kokkos::Timer timer;
@@ -343,8 +365,9 @@ int main(int argc, char *argv[]) {
           fprintf(fout_times, "\"%s%d\": %20.14e, \n", "wall_time_iter_", iter,
                   t_device_batch);
 
-          writeState(iter, t, dt, state, fout);
-
+          if (write_time_profiles) {
+            writeState(iter, t, dt, state, fout);
+          }
           /// carry over time and dt computed in this step
           tsum = zero;
           Kokkos::parallel_reduce(
@@ -369,8 +392,9 @@ int main(int argc, char *argv[]) {
     fprintf(fout_times, "%s: %d \n", "\"number_of_samples\"", nBatch);
     fprintf(fout_times, "} \n "); // reaction rates
 
-
-    fclose(fout);
+    if (write_time_profiles) {
+      fclose(fout);
+     }
     fprintf(fout_times, "}\n "); // end index time
     fclose(fout_times);
   }

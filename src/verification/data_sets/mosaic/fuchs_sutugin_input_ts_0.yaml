@@ -1,0 +1,7 @@
+
+TChem-atm:
+  function: fuchs_sutugin
+input:
+  fixed:
+    rkn: [  0.84212889079423601E+001]
+    a: [  0.10000000149011612E+000]

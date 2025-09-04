@@ -1,0 +1,8 @@
+
+TChem-atm:
+  function: bin_molality
+input:
+  fixed:
+    je: [         1]
+    aH2O_a: [  0.86918676121422112E+000]
+    molality: [  0.25344302823602594E-316]

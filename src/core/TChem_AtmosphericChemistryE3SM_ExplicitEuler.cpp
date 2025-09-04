@@ -1,9 +1,9 @@
 /* =====================================================================================
-TChem-atm version 1.0
-Copyright (2024) NTESS
+TChem-atm version 2.0.0
+Copyright (2025) NTESS
 https://github.com/sandialabs/TChem-atm
 
-Copyright 2024 National Technology & Engineering Solutions of Sandia, LLC
+Copyright 2025 National Technology & Engineering Solutions of Sandia, LLC
 (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
 Government retains certain rights in this software.
 
@@ -13,8 +13,9 @@ it and/or modify it under the terms of BSD 2-Clause License
 provided under the main directory
 
 Questions? Contact Oscar Diaz-Ibarra at <odiazib@sandia.gov>, or
-           Mike Schmidt at <mjschm@sandia.gov>, or
-           Cosmin Safta at <csafta@sandia.gov>
+           Cosmin Safta at <csafta@sandia.gov> or,
+           Nicole Riemer at <nriemer@illinois.edu> or,
+           Matthew West at <mwest@illinois.edu>
 
 Sandia National Laboratories, New Mexico/Livermore, NM/CA, USA
 =====================================================================================
@@ -48,6 +49,7 @@ namespace TChem
     using policy_type = PolicyType;
     using real_type_0d_view_type = Tines::value_type_0d_view<real_type, DeviceType>;
     using real_type_1d_view_type = Tines::value_type_1d_view<real_type, DeviceType>;
+    using range_type = Kokkos::pair<ordinal_type, ordinal_type>;
     using problem_type = TChem::Impl::AtmosphericChemistryE3SM_Problem<real_type,DeviceType>;
 
     const ordinal_type level = 1;
@@ -107,16 +109,16 @@ namespace TChem
       const real_type pressure = sv_at_i.Pressure();
       const real_type density = sv_at_i.Density();
       const real_type_1d_view_type Ys = sv_at_i.MassFractions();
-      const auto activeYs = real_type_1d_view_type(Ys.data(),
-                              kmcd.nSpec - kmcd.nConstSpec );
-      const auto constYs  = real_type_1d_view_type(Ys.data()
-                            + kmcd.nSpec - kmcd.nConstSpec,  kmcd.nSpec );
+      const auto activeYs = Kokkos::subview(Ys,
+          range_type(0, kmcd.nSpec - kmcd.nConstSpec));
+      const auto constYs = Kokkos::subview(Ys,
+          range_type(kmcd.nSpec - kmcd.nConstSpec, kmcd.nSpec));
 
       const real_type_0d_view_type temperature_out(sv_out_at_i.TemperaturePtr());
       const real_type_0d_view_type pressure_out(sv_out_at_i.PressurePtr());
       const real_type_1d_view_type Ys_out = sv_out_at_i.MassFractions();
-      const auto activeYs_out = real_type_1d_view_type(Ys_out.data(),
-                              kmcd.nSpec - kmcd.nConstSpec );
+      const auto activeYs_out = Kokkos::subview(Ys_out,
+          range_type(0, kmcd.nSpec - kmcd.nConstSpec));
 
       const real_type_0d_view_type density_out(sv_out_at_i.DensityPtr());
 

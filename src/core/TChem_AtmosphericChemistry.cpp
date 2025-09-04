@@ -1,9 +1,9 @@
 /* =====================================================================================
-TChem-atm version 1.0
-Copyright (2024) NTESS
+TChem-atm version 2.0.0
+Copyright (2025) NTESS
 https://github.com/sandialabs/TChem-atm
 
-Copyright 2024 National Technology & Engineering Solutions of Sandia, LLC
+Copyright 2025 National Technology & Engineering Solutions of Sandia, LLC
 (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
 Government retains certain rights in this software.
 
@@ -13,8 +13,9 @@ it and/or modify it under the terms of BSD 2-Clause License
 provided under the main directory
 
 Questions? Contact Oscar Diaz-Ibarra at <odiazib@sandia.gov>, or
-           Mike Schmidt at <mjschm@sandia.gov>, or
-           Cosmin Safta at <csafta@sandia.gov>
+           Cosmin Safta at <csafta@sandia.gov> or,
+           Nicole Riemer at <nriemer@illinois.edu> or,
+           Matthew West at <mwest@illinois.edu>
 
 Sandia National Laboratories, New Mexico/Livermore, NM/CA, USA
 =====================================================================================
@@ -539,9 +540,9 @@ TChem::AtmChemistry::setScenarioConditionsPhotolysisReactions(const std::string&
         if (nBatch_photo_reation == nBatch)
         {
           // std::cout << photo_rate_values << "\n";
-          for (int ibacth = 0; ibacth < nBatch; ++ibacth)
+          for (int ibatch = 0; ibatch < nBatch; ++ibatch)
           {
-            photo_rates_host(ibacth, ireac) = photo_rate_values[ibacth].as<real_type>();
+            photo_rates_host(ibatch, ireac) = photo_rate_values[ibatch].as<real_type>();
           }
         } else {
           printf("Error number of values in photo reaction is different than number of conditions");
@@ -610,9 +611,9 @@ if (root["external_forcing"]){
 
       if (nBatch_ext_forcing == nBatch)
       {
-        for (int ibacth = 0; ibacth < nBatch; ++ibacth)
+        for (int ibatch = 0; ibatch < nBatch; ++ibatch)
         {
-            external_forcing_host(ibacth, sp_idx) = ext_forcing_values[ibacth].as<real_type>();
+            external_forcing_host(ibatch, sp_idx) = ext_forcing_values[ibatch].as<real_type>();
         }
         } else {
           printf("Error number of values in external forcing is different than number of conditions");

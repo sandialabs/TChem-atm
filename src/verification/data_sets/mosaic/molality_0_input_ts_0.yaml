@@ -1,0 +1,8 @@
+
+TChem-atm:
+  function: molality_0
+input:
+  fixed:
+    je: [         5]
+    aw: [  0.86918676121422112E+000]
+    molality_0: [  0.86918676121422112E+000]

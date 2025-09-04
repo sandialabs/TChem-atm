@@ -1,9 +1,9 @@
 /* =====================================================================================
-TChem-atm version 1.0
-Copyright (2024) NTESS
+TChem-atm version 2.0.0
+Copyright (2025) NTESS
 https://github.com/sandialabs/TChem-atm
 
-Copyright 2024 National Technology & Engineering Solutions of Sandia, LLC
+Copyright 2025 National Technology & Engineering Solutions of Sandia, LLC
 (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
 Government retains certain rights in this software.
 
@@ -13,8 +13,9 @@ it and/or modify it under the terms of BSD 2-Clause License
 provided under the main directory
 
 Questions? Contact Oscar Diaz-Ibarra at <odiazib@sandia.gov>, or
-           Mike Schmidt at <mjschm@sandia.gov>, or
-           Cosmin Safta at <csafta@sandia.gov>
+           Cosmin Safta at <csafta@sandia.gov> or,
+           Nicole Riemer at <nriemer@illinois.edu> or,
+           Matthew West at <mwest@illinois.edu>
 
 Sandia National Laboratories, New Mexico/Livermore, NM/CA, USA
 =====================================================================================
@@ -37,9 +38,9 @@ namespace TChem {
   ordinal_type nSpec_gas_;
   ordinal_type nConstSpec_gas_;
   // number of particles
-  ordinal_type nParticles_;
-  // aerosol molecular weights and density
-  real_type_1d_dual_view molecular_weights_, aerosol_density_;
+  ordinal_type nParticles_{-1};
+  // aerosol molecular weights, density and kappa
+  real_type_1d_dual_view molecular_weights_, aerosol_density_, aerosol_kappa_;
   simpol_phase_transfer_type_1d_dual_view simpol_params_;
   ordinal_type nSimpol_tran_;
 
@@ -64,6 +65,8 @@ namespace TChem {
   void initFile(const std::string &mechfile,
                 std::ostream& echofile);
   ordinal_type initChem(YAML::Node& doc, std::ostream& echofile);
+  void setNumberofParticles(const ordinal_type number_of_particles);
+
   void setGasParameters(const KineticModelData& kmd);
   void scenarioConditionParticles(const std::string &mechfile,
                                   const ordinal_type nBatch,
@@ -91,6 +94,7 @@ namespace TChem {
 
     amcd_real_type_1d_view molecular_weights;
     amcd_real_type_1d_view aerosol_density;
+    amcd_real_type_1d_view aerosol_kappa;
 
    };
 
@@ -104,6 +108,7 @@ namespace TChem {
     data.nSimpol_tran=amd.nSimpol_tran_;
     data.molecular_weights = amd.molecular_weights_.template view<SpT>();
     data.aerosol_density = amd.aerosol_density_.template view<SpT>();
+    data.aerosol_kappa = amd.aerosol_kappa_.template view<SpT>();
     data.simpol_params = amd.simpol_params_.template view<SpT>();
   return data;
   }

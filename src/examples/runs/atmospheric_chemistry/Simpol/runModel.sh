@@ -1,9 +1,9 @@
-exec=$TCHEM_INSTALL_PATH/examples/TChem_AerosolChemistry_CVODE.x
+exec=$TCHEM_INSTALL_PATH/examples/TChem_AerosolChemistry.x
 
 run_this="$exec --chemfile=config_gas.yaml \
 	  --aerofile=test_SIMPOL_phase_transfer.yaml \
           --inputfile_particles=scenario_conditions_particle.yaml \
-	  --outputfile=full_gas.dat \
+	  --outputfile=full_gas_tines.dat \
           --use-cvode=true \
 	  --time-iterations-per-interval=10 \
           --max-time-iterations=100\

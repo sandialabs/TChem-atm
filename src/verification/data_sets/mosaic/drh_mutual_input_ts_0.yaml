@@ -1,0 +1,7 @@
+
+TChem-atm:
+  function: drh_mutual
+input:
+  fixed:
+    j_index: [         1]
+    T_K: [  0.29142360000000002E+003]

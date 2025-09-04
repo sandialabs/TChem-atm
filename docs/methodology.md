@@ -34,6 +34,14 @@ where $N_{\text{spec}}$ is the number of species, ${k_f}_i$ is the reaction cons
 
 <!-- Note that in $\eee{}$`s CAMPP solver, only forward reaction calculations are employed, and the single reaction constant values depend on the type of reaction. -->
 
+## **Aerosol-Gas interations**
+
+TChem-atm facilitates the construction of source terms (or RHS) for gas-aerosol cases. In these cases, the RHS is constructed as follows:
+
+![RHS of gas-aerosol](figures/RHS_gas_aerosol.png)
+
+Where, the first part of the RHS corresponds to the concentration of gas species. Then, the concentration of each particle is appended. Currently, TChem-atm supports the [SIMPOL mass transfer](methodology.md#simpol-mass-transfer).
+
 ## **Reaction Types**
 
 Currently, TChem-atm can reproduce gas chemistry for two complex reaction mechanisms: the gas chemistry of $\eee{}$ v3, i.e., the UCI chemistry system (University of California Irvine), and the Carbon Bond 2005 chemical mechanism, which is well-formulated for urban to remote tropospheric conditions ([Dawson](https://gmd.copernicus.org/articles/15/3663/2022/),[Yarwood](https://www.camx.com/Files/CB05_Final_Report_120805.pdf)).
@@ -182,7 +190,9 @@ $$
 2HO_2 \rightarrow H_2O_2
 $$
 
+<!--
 **Note: from here, onward, the equations and variable names don't agree, so I would make sure to provide a map between the corresponding quantities.**
+-->
 
 ```yaml
 - MUSICA_name: R34
@@ -360,6 +370,14 @@ Note that TChem will find the index of the proper corresponding species.
 The `reaction_list` gives the index of the reactions for which this modifier is applied. Finally, `photolysis_reaction_index` is the index of the $\mathrm{prod_{O1D}}$ reaction.
 
 Future work will convert `reaction_list` from a list of indices to reaction IDs, as will `photolysis_reaction_index`. Thus, one does not need to know the index of each reaction before running a TChem simulation.
+
+## **Gas-Aerosol Reaction Types**
+
+### SIMPOL mass transfer
+
+It calculates the evaporation rate of organic species that partition between the gas and aerosol phase, based on the parameterization by [Pankow and Asher (2008)](https://acp.copernicus.org/articles/8/2773/2008/acp-8-2773-2008.html).
+
+TChem-atm utilizes a YAML file and follows to the [CAMP format](https://github.com/open-atmos/camp) to specify SIMPOL types.
 
 <!--Future work-->
 <!-- ## Gas and Particle interaction

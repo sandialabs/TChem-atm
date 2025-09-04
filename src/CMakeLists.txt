@@ -31,6 +31,8 @@ SET(TCHEM_ATM_INSTALL_BIN_PATH     bin)
 SET(TCHEM_ATM_INSTALL_TEST_PATH    unit-tests)
 SET(TCHEM_ATM_INSTALL_EXAMPLE_PATH examples)
 
+LIST(APPEND CMAKE_MODULE_PATH "${TChem_atm_SOURCE_DIR}/cmake/modules")
+MESSAGE(STATUS "TChem_ATM uses CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}")
 #
 # Options : use TCHEM_ATM prefix
 #
@@ -43,11 +45,13 @@ OPTION(TCHEM_ATM_ENABLE_INSTALL "Flag to enable install exports for TCHEM_ATM" O
 OPTION(TCHEM_ATM_ENABLE_SACADO_JACOBIAN_ATMOSPHERIC_CHEMISTRY "Flag to enable sacado jacobian for atmospheric chemistry" OFF)
 OPTION(TCHEM_ATM_ENABLE_SKYWALKER "Flag to enable Skywalker" OFF)
 OPTION(TCHEM_ATM_ENABLE_KOKKOSKERNELS "Flag to enable Kokkos-kernels" OFF)
+OPTION(TCHEM_ATM_ENABLE_COVERAGE  "Enable code coverage instrumentation" OFF)
 
 OPTION(KOKKOS_INSTALL_PATH "Path to Kokkos installation")
 OPTION(TINES_INSTALL_PATH "Path to Tines installation")
 OPTION(GTEST_INSTALL_PATH "Path to gtest installation")
 OPTION(SKYWALKER_INSTALL_PATH "Path to Skywalker installation")
+OPTION(SUNDIALS_INSTALL_PATH "Path to SUNDIALS installation")
 
 INCLUDE_DIRECTORIES(${TChem_atm_BINARY_DIR})
 
@@ -128,6 +132,16 @@ ELSE()
 ENDIF()
 
 
+IF (SUNDIALS_INSTALL_PATH)
+  # Interface installed SUNDIALS
+  FIND_PACKAGE(SUNDIALS)
+  SET(TCHEM_ATM_INTERNAL_SUNDIALS_TARGET "SUNDIALS::cvode")
+  SET(TCHEM_ATM_ENABLE_TPL_SUNDIALS ON CACHE BOOL "Enable Sundials")
+  LIST(APPEND TCHEM_ATM_LINK_LIBRARIES ${TCHEM_ATM_INTERNAL_SUNDIALS_TARGET})
+ELSEIF(TCHEM_ATM_SUNDIALS_WARNING)
+  MESSAGE(WARNING "-- SUNDIALS_INSTALL_PATH is not provided; SUNDIALS TPL is not enabled")
+ENDIF()
+
 #
 # gtest
 #
@@ -167,6 +181,27 @@ ENDIF()
 ENDIF()
 
 
+# Code coverage
+
+if (TCHEM_ATM_ENABLE_COVERAGE)
+  MESSAGE(STATUS "Enabling code coverage instrumentation")
+  FIND_PROGRAM(LCOV_EXE lcov DOC "Lcov code coverage tool")
+  if (LCOV_EXE MATCHES "NOTFOUND")
+    MESSAGE(FATAL_ERROR "Could not find lcov for code coverage reporting!")
+  endif()
+
+  # Add code coverage compiler/linker flags
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+  SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+
+  # Add a "make coverage" target.
+  add_custom_target(coverage ${LCOV_EXE} --capture --directory . -o unfiltered_coverage.info
+    COMMAND ${LCOV_EXE} --remove unfiltered_coverage.info -o coverage.info '*/external/*' '*/tests/*' '*/validation/*'
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    COMMENT "Generating coverage report (coverage.info)")
+endif()
+
+
 #
 # Linking libraries used in example and test
 #
@@ -191,6 +226,9 @@ IF (TCHEM_ATM_ENABLE_TEST)
 ENDIF()
 IF (TCHEM_ATM_ENABLE_EXAMPLE)
   ADD_SUBDIRECTORY (examples)
+ENDIF()
+IF (TCHEM_ATM_ENABLE_SKYWALKER)
+  ADD_SUBDIRECTORY (verification)
 ENDIF()
 
 # add in target include for build to enable finding TChem_atm_Config

@@ -1,0 +1,7 @@
+
+TChem-atm:
+  function: bin_molality_60
+input:
+  fixed:
+    je: [         1]
+    molality: [  0.00000000000000000E+000]
