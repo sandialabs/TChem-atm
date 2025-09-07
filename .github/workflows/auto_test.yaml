@@ -36,4 +36,13 @@ jobs:
     - name: Building TChem (${{ matrix.build-type }}, ${{ matrix.sacado-on }} sacado)
       run: docker build -f Dockerfile -t tchem . --build-arg BUILD_TYPE=${{ matrix.build-type }} --build-arg SACADO=${{ matrix.sacado-on }}
     - name: Testing TChem
-      run: docker run -t tchem bash -c 'cd /tchem_build; ctest'
+      run: docker run -t -v "$PWD:/shared" tchem bash -c 'cd /tchem_build && ctest --output-on-failure && make coverage && mv coverage.info /shared'
+    - name: Uploading coverage report to codecov.io
+      if: ${{ (contains(matrix.os, 'ubuntu')) && (matrix.build-type == 'Debug') && (matrix.sacado-on == 'OFF') }}
+      uses: codecov/codecov-action@v3
+      with:
+        fail_ci_if_error: true
+        files: coverage.info
+        name: TChem-atm
+        token: ${{ secrets.CODECOV_TOKEN }}
+        verbose: true
