@@ -1,0 +1,1057 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../installation/">
+      
+      
+        <link rel="next" href="../input/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>Methodology - TChem-atm: a performance portable toolkit for atmospheric chemistry mechanisms</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#methodology" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="TChem-atm: a performance portable toolkit for atmospheric chemistry mechanisms" class="md-header__button md-logo" aria-label="TChem-atm: a performance portable toolkit for atmospheric chemistry mechanisms" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            TChem-atm: a performance portable toolkit for atmospheric chemistry mechanisms
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Methodology
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/sandialabs/TChem-atm" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="TChem-atm: a performance portable toolkit for atmospheric chemistry mechanisms" class="md-nav__button md-logo" aria-label="TChem-atm: a performance portable toolkit for atmospheric chemistry mechanisms" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    TChem-atm: a performance portable toolkit for atmospheric chemistry mechanisms
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/sandialabs/TChem-atm" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Methodology
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Methodology
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aerosol-gas-interations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aerosol-Gas interations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reaction-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reaction Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reaction Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arrhenius-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arrhenius Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troe-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troe Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-h2o2-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom H2O2 type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-oh_hno3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom OH_HNO3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troe-arrhenius-ratio-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troe-Arrhenius Ratio Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usr_dms_oh" class="md-nav__link">
+    <span class="md-ellipsis">
+      usr_DMS_OH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usr_so2_oh" class="md-nav__link">
+    <span class="md-ellipsis">
+      usr_SO2_OH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifier-prod-o1d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifier prod O1D
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gas-aerosol-reaction-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gas-Aerosol Reaction Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gas-Aerosol Reaction Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simpol-mass-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      SIMPOL mass transfer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Input Files
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Examples
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aerosol-gas-interations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Aerosol-Gas interations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reaction-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reaction Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reaction Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#arrhenius-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Arrhenius Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troe-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troe Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-h2o2-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom H2O2 type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-oh_hno3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom OH_HNO3
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troe-arrhenius-ratio-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troe-Arrhenius Ratio Type
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usr_dms_oh" class="md-nav__link">
+    <span class="md-ellipsis">
+      usr_DMS_OH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usr_so2_oh" class="md-nav__link">
+    <span class="md-ellipsis">
+      usr_SO2_OH
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifier-prod-o1d" class="md-nav__link">
+    <span class="md-ellipsis">
+      Modifier prod O1D
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gas-aerosol-reaction-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gas-Aerosol Reaction Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gas-Aerosol Reaction Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simpol-mass-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      SIMPOL mass transfer
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="methodology"><strong>Methodology</strong></h1>
+<p>TChem-atm computes the source term or the right-hand side of the gas-species equations:</p>
+<!-- \begin{equation}\label{eq:ode_vmr} -->
+<div class="arithmatex">\[
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\eee}{\mathrm{E3SM}}
+  \frac{\dif{} \eta_k}{\dif{} t}=\dot{\omega}_k,\quad k = 1, \dots, N
+\]</div>
+<!-- \end{equation} -->
+
+<p>and its associated Jacobian matrix, <span class="arithmatex">\(\textbf{J}_{ij} = \frac{\partial \dot{\omega}_i}{\partial \eta_j }\)</span>, which is evaluated using either finite differences (Tines library) or automatic differentiation (Sacado library).
+Furthermore, TChem-atm has an interface for Tines or CVODE ODE (ordinary differential equation) solver to advance the volumetric mixing ratio (vmr, <span class="arithmatex">\(\eta_k\)</span> ) of gas species, <span class="arithmatex">\(k\)</span>, in time.</p>
+<p>The net production rate of species <span class="arithmatex">\(k\)</span>, <span class="arithmatex">\(\dot{\omega}_k\)</span>, or the "right-hand side" of the previous equation is computed using:</p>
+<!-- \begin{equation}\label{eq:net_production_rates} -->
+<div class="arithmatex">\[
+  \dot{\omega}_k=\sum_{i=1}^{N_{\text{react}}}\nu_{ki}q_i,\quad \nu_{ki}=\nu''_{ki}-\nu'_{ki},
+\]</div>
+<!-- \end{equation} -->
+
+<p>where <span class="arithmatex">\(q_i\)</span> is the rate of progress of reaction <span class="arithmatex">\(i\)</span>, <span class="arithmatex">\(N_{\text{react}}\)</span> is the number of reactions and <span class="arithmatex">\(\nu''_{ki}\)</span> and <span class="arithmatex">\(\nu'_{ki}\)</span> are the stoichiometric coefficients for species <span class="arithmatex">\(k\)</span> in reaction <span class="arithmatex">\(i\)</span> for the reactant and product sides of the reaction, respectively.
+The rate of progress of reaction <span class="arithmatex">\(i\)</span>, <span class="arithmatex">\(q_i\)</span>, is computed as</p>
+<!-- \begin{equation}\label{eq:rate_of_progress} -->
+<div class="arithmatex">\[
+  q_i={k_f}_i\prod_{j=1}^{N_{\text{spec}}}\eta_j^{\nu'_{ji}},
+\]</div>
+<!-- \end{equation} -->
+
+<p>where <span class="arithmatex">\(N_{\text{spec}}\)</span> is the number of species, <span class="arithmatex">\({k_f}_i\)</span> is the reaction constant of reaction <span class="arithmatex">\(i\)</span>. The reaction constant <span class="arithmatex">\({k_f}_i\)</span> can take several functional forms depending on the reaction type. We present below the reaction types that are available in TChem-atm.</p>
+<!-- Note that in $\eee{}$`s CAMPP solver, only forward reaction calculations are employed, and the single reaction constant values depend on the type of reaction. -->
+
+<h2 id="aerosol-gas-interations"><strong>Aerosol-Gas interations</strong></h2>
+<p>TChem-atm facilitates the construction of source terms (or RHS) for gas-aerosol cases. In these cases, the RHS is constructed as follows:</p>
+<p><img alt="RHS of gas-aerosol" src="../figures/RHS_gas_aerosol.png" /></p>
+<p>Where, the first part of the RHS corresponds to the concentration of gas species. Then, the concentration of each particle is appended. Currently, TChem-atm supports the <a href="./#simpol-mass-transfer">SIMPOL mass transfer</a>.</p>
+<h2 id="reaction-types"><strong>Reaction Types</strong></h2>
+<p>Currently, TChem-atm can reproduce gas chemistry for two complex reaction mechanisms: the gas chemistry of <span class="arithmatex">\(\eee{}\)</span> v3, i.e., the UCI chemistry system (University of California Irvine), and the Carbon Bond 2005 chemical mechanism, which is well-formulated for urban to remote tropospheric conditions (<a href="https://gmd.copernicus.org/articles/15/3663/2022/">Dawson</a>,<a href="https://www.camx.com/Files/CB05_Final_Report_120805.pdf">Yarwood</a>).
+To represent these mechanisms, TChem-atm implements Troe, Arrhenius, Troe-Arrhenius ratio, and Custom-H2O2 reaction types.</p>
+<p>Next, we present the expression for the forward rate constant of the reaction types implemented in TChem-atm.
+In these equations, <span class="arithmatex">\(\mathrm{T}\)</span>, <span class="arithmatex">\(\mathrm{P}\)</span>, and <span class="arithmatex">\([M]\)</span> correspond to the temperature, pressure, and air concentration.</p>
+<h3 id="arrhenius-type">Arrhenius Type</h3>
+<p>The Arrhenius type of reaction (<code>type: ARRHENIUS</code>) is computed by</p>
+<div class="arithmatex">\[
+k_f = A \mathop{\mathrm{exp}} \left( \frac{C}{\mathrm{T}} \right)  \frac{\mathrm{T}}{D}^B (1+ E\,\mathrm{P})
+\]</div>
+<p>Where, <span class="arithmatex">\(A\)</span>, <span class="arithmatex">\(B\)</span>, <span class="arithmatex">\(C\)</span>, and <span class="arithmatex">\(D\)</span> are kinetic constants. As an example, the following reaction from the Carbon Bond 05 mechanism,</p>
+<div class="arithmatex">\[
+O_3 + NO \rightarrow NO_2 + O_2,
+\]</div>
+<p>has the following information provided using the following YAML configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">MUSICA_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R3</span>
+<span class="w">  </span><span class="nt">reactants</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">O3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">NO</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">products</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">NO2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ARRHENIUS</span>
+<span class="w">  </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3e-12</span>
+<span class="w">    </span><span class="nt">B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+<span class="w">    </span><span class="nt">C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1500.0</span>
+<span class="w">    </span><span class="nt">D</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0</span>
+</code></pre></div>
+<p>Under <code>reactants</code> and <code>products</code>, the name and stoichiometric coefficient (<span class="arithmatex">\(\nu''_{ki}\)</span>, <span class="arithmatex">\(\nu'_{ki}\)</span>) of each species is listed.</p>
+<p>Note that in the previous reaction, <span class="arithmatex">\(O_2\)</span> is not considered a product in the computation of <span class="arithmatex">\(k_f\)</span>.</p>
+<h3 id="troe-type">Troe Type</h3>
+<p>The Troe type of reaction (<code>type: TROE</code>) is computed by</p>
+<div class="arithmatex">\[
+k_f=\frac{k_0[M]}{1+\frac{k_0[M]}{k_{\infty}}}F_c^{\left(1+\left(\frac{\log_{10} \left(\frac{k_0[M]}{k_{\infty}} \right)}{N}\right)^2 \right)^{-1}},
+\]</div>
+<p>where, <span class="arithmatex">\(k_0\)</span> and <span class="arithmatex">\(k_{\infty}\)</span> are computed via the following Arrhenius expression.</p>
+<div class="arithmatex">\[
+k_0 = k_{0_A} \mathop{\mathrm{exp}} \left( \frac{k_{0_C}}{\mathrm{T}} \right)  \left(\frac{\mathrm{T}}{300}\right)^{k_{0_B}}
+\]</div>
+<div class="arithmatex">\[
+k_{\infty} = k_{\infty_A} \mathop{\mathrm{exp}} \left( \frac{k_{\infty_C}}{\mathrm{T}} \right) \left(\frac{\mathrm{T}}{300}\right)^{k_{\infty_B}}
+\]</div>
+<p>As an example of one reaction from the Carbon Bond 05 mechanism,</p>
+<div class="arithmatex">\[
+O + NO_2 \rightarrow NO_3
+\]</div>
+<p>The kinetic constants are provided using the following format:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">MUSICA_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R5</span>
+<span class="w">  </span><span class="nt">reactants</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">O</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">NO2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">products</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">NO3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TROE</span>
+<span class="w">  </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">k0_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.5e-31</span>
+<span class="w">    </span><span class="nt">k0_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-1.8</span>
+<span class="w">    </span><span class="nt">k0_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-0.0</span>
+<span class="w">    </span><span class="nt">kinf_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.2e-11</span>
+<span class="w">    </span><span class="nt">kinf_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-0.7</span>
+<span class="w">    </span><span class="nt">kinf_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-0.0</span>
+<span class="w">    </span><span class="nt">Fc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
+<span class="w">    </span><span class="nt">N</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+</code></pre></div>
+<p>We use a modified version of the Troe reaction for the UCI mechanism using the <code>type: JPL</code>.</p>
+<p>For example, for the <code>uci6</code> reaction in the UCI mechanism:</p>
+<div class="arithmatex">\[
+HNO_3 + OH \rightarrow NO_3 + H_2O
+\]</div>
+<p><div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">k0_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6.5e-34</span>
+<span class="w">    </span><span class="nt">k0_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">k0_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1335</span>
+<span class="w">    </span><span class="nt">Fc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">kinf_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.7e-17</span>
+<span class="w">    </span><span class="nt">kinf_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">kinf_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2199</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JPL</span>
+<span class="w">  </span><span class="nt">note</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uci6</span>
+<span class="w">  </span><span class="nt">adjust_reaction</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;52&#39;</span>
+<span class="w">  </span><span class="nt">reactants</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">HNO3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">OH</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">products</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">NO3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">H2O</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</code></pre></div>
+Note that in the  <code>JPL</code> type <code>N = 1</code>.</p>
+<h3 id="custom-h2o2-type">Custom H2O2 type</h3>
+<p>The rate constant for the custom H2O2 type of reaction (<code>type: CMAQ_H2O2</code>) cannot be expressed as the combination of Arrhenius and Troe reaction types. Hence, TChem-atm has a specific convention for this reaction.</p>
+<!--$$
+k_f = A_1 \mathop{\mathrm{exp}} \Big( \frac{C_1}{\mathrm{T}} \Big)
+\left(\frac{\mathrm{T}}{300}\right)^{B_1} + A_2 \mathop{\mathrm{exp}} \Big ( \frac{C_2}{\mathrm{T}} \Big) \left(\frac{\mathrm{T}}{300}\right)^{B_2} \mathrm{conv}
+$$-->
+
+<div class="arithmatex">\[
+k_f = A_1 \mathop{\mathrm{exp}} \left( \frac{C_1}{\mathrm{T}} \right)
+\left(\frac{\mathrm{T}}{300}\right)^{B_1} + A_2 \mathop{\mathrm{exp}} \left( \frac{C_2}{\mathrm{T}} \right) \left(\frac{\mathrm{T}}{300}\right)^{B_2} V_A
+\]</div>
+<!--mjs: I don't have an intuition for what the "conv" term is, but if my late-night math is correct, it appears to have units [Pa / J], which is... volume?? Either way, I thought it should have a single-letter variable name, which probably shouldn't be V if it's not a volume-->
+
+<div class="arithmatex">\[
+V_A = \frac{P\ N_A\ R \times 10^{12}}{T},
+\]</div>
+<!--where, $V_A = \frac{N_A}{R \times 10^{-12}} \frac{P}{T}$ and-->
+<p><span class="arithmatex">\(N_A=6.02214179 \times 10^{23}\)</span> is Avogadro's number (<span class="arithmatex">\(\mathrm{mole}^{-1}\)</span>), and <span class="arithmatex">\(R=8.314472\)</span> is the universal gas constant (<span class="arithmatex">\(J\ \mathrm{mole}^{-1}\ K^{-1}\)</span>).</p>
+<p>As an example of this reaction from the Carbon Bond 05 mechanism:</p>
+<div class="arithmatex">\[
+2HO_2 \rightarrow H_2O_2
+\]</div>
+<!--
+**Note: from here, onward, the equations and variable names don't agree, so I would make sure to provide a map between the corresponding quantities.**
+-->
+
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">MUSICA_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R34</span>
+<span class="w">  </span><span class="nt">reactants</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">HO2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
+<span class="w">  </span><span class="nt">products</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">H2O2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">DUMMY</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CMAQ_H2O2</span>
+<span class="w">  </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">k1_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.3e-13</span>
+<span class="w">    </span><span class="nt">k1_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">600.0</span>
+<span class="w">    </span><span class="nt">k2_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.7e-33</span>
+<span class="w">    </span><span class="nt">k2_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000.0</span>
+</code></pre></div>
+<h3 id="custom-oh_hno3">Custom OH_HNO3</h3>
+<p>The Carbon Bond 05 mechanism employs this reaction type and can be expressed as the sum of Arrhenius and Troe reaction types, i.e., <span class="arithmatex">\(k_f=k_{\text{troe}} + k_{\text{arrhenius}}\)</span>. Hence, one must specify two reactions in the YAML input files. For example:</p>
+<div class="arithmatex">\[
+HNO_3 + OH \rightarrow NO_3
+\]</div>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.4e-14</span>
+<span class="w">    </span><span class="nt">C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">460.0</span>
+<span class="w">  </span><span class="nt">note</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CMAQ_OH_HNO3</span>
+<span class="w">  </span><span class="nt">products</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">NO3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="nt">reactants</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">HNO3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="nt">OH</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ARRHENIUS</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">k0_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6.5e-34</span>
+<span class="w">    </span><span class="nt">k0_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1335.0</span>
+<span class="w">    </span><span class="nt">kinf_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.7e-17</span>
+<span class="w">    </span><span class="nt">kinf_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2199.0</span>
+<span class="w">    </span><span class="nt">Fc </span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">note</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CMAQ_OH_HNO3</span>
+<span class="w">  </span><span class="nt">products</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">NO3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="nt">reactants</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">HNO3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="nt">OH</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">TROE</span>
+</code></pre></div>
+<h3 id="troe-arrhenius-ratio-type">Troe-Arrhenius Ratio Type</h3>
+<p>This reaction type (<code>type: R_JPL_ARRHENIUS</code>) is computed as the ratio between Troe (or JPL) and Arrhenius types, i.e., <span class="arithmatex">\(k_f=k_{\text{troe}}/k_{\text{arrhenius}}\)</span>.</p>
+<p>The addition of this reaction type to represent UCI reactions required custom-defined rate coefficients (UCI #7-9). As an example, for the <a href="https://github.com/E3SM-Project/scream/blob/a73d48a5f8556e5240b64b037bc60d42cb5f2413/components/eam/src/chemistry/mozart/llnl_O1D_to_2OH_adj.F90#L184"><code>uci7</code></a> reaction:</p>
+<div class="arithmatex">\[
+HO_2NO_2 + M \rightarrow HO_2 + NO_2 + M
+\]</div>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">k0_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.9e-31</span>
+<span class="w">    </span><span class="nt">k0_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-3.4</span>
+<span class="w">    </span><span class="nt">Fc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
+<span class="w">    </span><span class="nt">kinf_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4e-12</span>
+<span class="w">    </span><span class="nt">kinf_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-0.3</span>
+<span class="w">    </span><span class="nt">A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.1e-27</span>
+<span class="w">    </span><span class="nt">B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10900.0</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R_JPL_ARRHENIUS</span>
+<span class="w">  </span><span class="nt">note</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uci7</span>
+<span class="w">  </span><span class="nt">adjust_reaction</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">M</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;57&#39;</span>
+<span class="w">  </span><span class="nt">reactants</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">HO2NO2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">products</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">HO2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">NO2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">M</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</code></pre></div>
+<h3 id="usr_dms_oh">usr_DMS_OH</h3>
+<p>The reaction type <code>usr_DMS_OH</code> is part of the UCI mechanism and is hard-coded in the <a href="https://github.com/E3SM-Project/scream/blob/a73d48a5f8556e5240b64b037bc60d42cb5f2413/components/eam/src/chemistry/mozart/mo_usrrxt.F90#L683"><code>mo_usrrxt</code></a> submodule in <span class="arithmatex">\(\eee\)</span>'s code. In TChem, we reformulate this reaction type as a Troe (or JPL) reaction type using the following configuration.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">k0_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.57e-43</span>
+<span class="w">    </span><span class="nt">k0_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">k0_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7810</span>
+<span class="w">    </span><span class="nt">Fc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">kinf_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.0909090909090913e-12</span>
+<span class="w">    </span><span class="nt">kinf_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">kinf_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">350</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JPL</span>
+<span class="w">  </span><span class="nt">note</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usr_DMS_OH</span>
+<span class="w">  </span><span class="nt">adjust_reaction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">M</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">M</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;89&#39;</span>
+<span class="w">  </span><span class="nt">reactants</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">DMS</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">OH</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">products</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">SO2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+<span class="w">    </span><span class="nt">HO2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.5</span>
+</code></pre></div>
+<h3 id="usr_so2_oh">usr_SO2_OH</h3>
+<p>The reaction type <code>usr_SO2_OH</code> is part of the UCI mechanism and is hard-coded in the <a href="https://github.com/E3SM-Project/scream/blob/a73d48a5f8556e5240b64b037bc60d42cb5f2413/components/eam/src/chemistry/mozart/mo_usrrxt.F90#L693"><code>mo_usrrxt</code></a> submodule in <span class="arithmatex">\(\eee\)</span>'s code. In TChem, we reformulate this reaction type as a Troe (or JPL) reaction type using the following configuration.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">k0_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3e-31</span>
+<span class="w">    </span><span class="nt">k0_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-3.3</span>
+<span class="w">    </span><span class="nt">k0_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">Fc</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.6</span>
+<span class="w">    </span><span class="nt">N</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">    </span><span class="nt">kinf_A</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5e-12</span>
+<span class="w">    </span><span class="nt">kinf_B</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">    </span><span class="nt">kinf_C</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JPL</span>
+<span class="w">  </span><span class="nt">note</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usr_SO2_OH</span>
+<span class="w">  </span><span class="nt">adjust_reaction</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">M</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">M</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;90&#39;</span>
+<span class="w">  </span><span class="nt">reactants</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">SO2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">OH</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">products</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">H2SO4</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</code></pre></div>
+<h3 id="modifier-prod-o1d">Modifier prod O1D</h3>
+<p>Reaction types <a href="https://github.com/E3SM-Project/scream/blob/a73d48a5f8556e5240b64b037bc60d42cb5f2413/components/eam/src/chemistry/mozart/llnl_O1D_to_2OH_adj.F90#L152">UCI 1, 2, 3</a> in the UCI mechanism require a modifier to compute the reaction rate. We did not include this modifier under the <code>reaction</code> section of the input file; instead, we created the section <code>modifier_prod_O1D</code>.</p>
+<div class="arithmatex">\[
+\mathrm{factor} = \frac{\mathrm{prod_{O1D}}}{f_c}
+\]</div>
+<!-- this equation looks weird to me with all the full words--can "factor" and "prod" be given single-letter variable names? -->
+
+<p>where, <span class="arithmatex">\(f_c\)</span></p>
+<div class="arithmatex">\[
+f_c = A_1 \mathop{\mathrm{exp}} \left(\frac{C_1}{\mathrm{T}} \right) [\mathrm{N_2}] +
+A_2 \mathop{\mathrm{exp}} \left(\frac{C_2}{\mathrm{T}} \right) [\mathrm{O_2}] +
+A_3 \mathop{\mathrm{exp}} \left(\frac{C_3}{\mathrm{T}} \right) [\mathrm{H_2O}]
+\]</div>
+<p>The YAML configuration for this modifier is :</p>
+<p><div class="highlight"><pre><span></span><code><span class="nt">modifier_prod_O1D</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">coefficients</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">A1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.15e-11</span>
+<span class="w">    </span><span class="nt">C1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">110.0</span>
+<span class="w">    </span><span class="nt">A2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.3e-11</span>
+<span class="w">    </span><span class="nt">C2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">55.0</span>
+<span class="w">    </span><span class="nt">A3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.63e-10</span>
+<span class="w">    </span><span class="nt">C3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60.0</span>
+<span class="w">  </span><span class="nt">species_name_1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">N2</span>
+<span class="w">  </span><span class="nt">species_name_2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">O2</span>
+<span class="w">  </span><span class="nt">species_name_3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">H2O</span>
+<span class="w">  </span><span class="nt">reaction_list</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">23</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+<span class="w">  </span><span class="nt">photolysis_reaction_index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+</code></pre></div>
+Here, under <code>coefficients</code>, the kinetic parameters are presented.
+The species involved in this factor are listed as <code>species_name_1</code> and <code>species_name_2</code>.
+Note that TChem will find the index of the proper corresponding species.
+The <code>reaction_list</code> gives the index of the reactions for which this modifier is applied. Finally, <code>photolysis_reaction_index</code> is the index of the <span class="arithmatex">\(\mathrm{prod_{O1D}}\)</span> reaction.</p>
+<p>Future work will convert <code>reaction_list</code> from a list of indices to reaction IDs, as will <code>photolysis_reaction_index</code>. Thus, one does not need to know the index of each reaction before running a TChem simulation.</p>
+<h2 id="gas-aerosol-reaction-types"><strong>Gas-Aerosol Reaction Types</strong></h2>
+<h3 id="simpol-mass-transfer">SIMPOL mass transfer</h3>
+<p>It calculates the evaporation rate of organic species that partition between the gas and aerosol phase, based on the parameterization by <a href="https://acp.copernicus.org/articles/8/2773/2008/acp-8-2773-2008.html">Pankow and Asher (2008)</a>.</p>
+<p>TChem-atm utilizes a YAML file and follows to the <a href="https://github.com/open-atmos/camp">CAMP format</a> to specify SIMPOL types.</p>
+<!--Future work-->
+<!-- ## Gas and Particle interaction
+
+### Simple mass transfer -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indices", "navigation.instant", "navigation.sections", "navigation.top"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+        <script src="../javascript/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
