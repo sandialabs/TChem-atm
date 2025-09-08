@@ -1,6 +1,6 @@
 # **Overview**
 
-Tchem-atm is a chemistry solver for problems in atmospheric chemistry.
+TChem-atm is a chemistry solver for problems in atmospheric chemistry.
 TChem-atm computes source terms and Jacobian matrices for chemical systems. It is a performance-portable software toolkit designed for complex kinetic mechanisms.
 
 Software Design:
@@ -9,16 +9,15 @@ Software Design:
   * [Kokkos](https://github.com/kokkos/kokkos.git) programming model for performance portability.
   * CMake build system.
   * Numerical and SACADO analytic Jacobian calculations for all models.
-  * Coupling to external ODE solvers, e.g., [Tines](https://github.com/sandialabs/Tines), [Sundials](https://computing.llnl.gov/projects/sundials) (CVODE).
+  * Coupling to external ODE solvers, e.g., [Tines](https://github.com/sandialabs/Tines), [Sundials](https://computing.llnl.gov/projects/sundials) (CVODE), [Kokkos-kernels](https://github.com/kokkos/kokkos-kernels)(BDF).
+  * Continuous integration with GitHub Actions.
+  * Code coverage with Codecov. 
+  * Online documentation deployed with GitHub Actions.
+  * Docker support. 
 
 ![TChem](figures/TChem_atm.png)
 
-TChem-atm is configured using a YAML input file to construct the internal representation of the kinetic model, containing relevant parameters for the computation of chemical source terms.
-It computes reaction constants and rates of progress for all reactions and calculates the net production rate, or source terms, for all chemical species.
-TChem-atm automatically calculates the Jacobian matrix for source terms using either finite differences (numerical Jacobian) or automatic differentiation (analytical Jacobian via SACADO).
-Furthermore, the computation of the source term and associated Jacobian is independent of the time integration solver in TChem-atm.
-As such, TChem-atm provides an interface for time-stepping solutions (Box model) for the Tines and CVODE libraries.
-Finally, TChem-atm features a batched interface for all of the above calculations.
+TChem-atm is configured using a YAML input file to construct the internal representation of the kinetic model, containing relevant parameters for the computation of chemical source terms. It computes reaction constants and rates of progress for all reactions and calculates the net production rate, or source terms, for all chemical species. Furthermore, it provides an interface for gas-aerosol interactions that allows coupling with aerosol models. TChem-atm automatically calculates the Jacobian matrix for source terms using either finite differences (numerical Jacobian) or automatic differentiation (analytical Jacobian via SACADO). Furthermore, the computation of the source term and associated Jacobian is independent of the time integration solver in TChem-atm. As such, TChem-atm provides an interface for time-stepping solutions (Box model) for the Tines, CVODE, and Kokkos-kernels libraries. Finally, TChem-atm features a batched interface for all of the above calculations.
 
 # **Citations**
 

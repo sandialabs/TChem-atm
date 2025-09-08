@@ -50,6 +50,24 @@ species:
 
 A description of the reaction types currently implemented in TChem-atm is presented in [Methodology section](methodology.md). In addition, a set of examples of input files is presented under `/src/examples/runs/atmopheric_chemistry`.
 
+## **Gas-Aerosol Chemistry Input File**
+
+To execute a gas-aerosol case in TChem-atm, one needs an input file with the aerosol mechanisms, `aerofile`, and a file where scenario particle information is given, `inputfile_particles`. The aerosol mechanism utilizes a YAML file and follows to the [CAMP format](https://github.com/open-atmos/camp). The scenario particle information follows this format:
+
+```yaml
+particles:
+  initial_state:
+    species_name_1: 
+      initial_value: [1.0e-8]
+    species_name_2: 
+      initial_value: [1.4e-2]
+  num_concentration:
+   initial_value: [1.3e6]  
+
+```
+In this structure, `species_name_1` denotes the initial concentration of species 1 within a single particle. It's important to note that the initial composition for species 1 is consistent across all particles.
+
+Additionally, to incorporate gas-phase reactions into the simulation, a gas reaction mechanism can be seamlessly integrated into the gas-aerosol case.
 <!-- Future work -->
 <!-- ## Gas-Particle chemistry input file. -->
 

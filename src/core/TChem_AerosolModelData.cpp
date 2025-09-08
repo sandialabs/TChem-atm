@@ -1,9 +1,9 @@
 /* =====================================================================================
-TChem-atm version 1.0
-Copyright (2024) NTESS
+TChem-atm version 2.0.0
+Copyright (2025) NTESS
 https://github.com/sandialabs/TChem-atm
 
-Copyright 2024 National Technology & Engineering Solutions of Sandia, LLC
+Copyright 2025 National Technology & Engineering Solutions of Sandia, LLC
 (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S.
 Government retains certain rights in this software.
 
@@ -13,8 +13,9 @@ it and/or modify it under the terms of BSD 2-Clause License
 provided under the main directory
 
 Questions? Contact Oscar Diaz-Ibarra at <odiazib@sandia.gov>, or
-           Mike Schmidt at <mjschm@sandia.gov>, or
-           Cosmin Safta at <csafta@sandia.gov>
+           Cosmin Safta at <csafta@sandia.gov> or,
+           Nicole Riemer at <nriemer@illinois.edu> or,
+           Matthew West at <mwest@illinois.edu>
 
 Sandia National Laboratories, New Mexico/Livermore, NM/CA, USA
 =====================================================================================
@@ -85,7 +86,7 @@ int AerosolModelData::initChem(YAML::Node &root,
     // given the name of species return the YAML::NODE
     std::map<std::string, YAML::Node> gas_sp_info;
     // 2. get molecular weitghs and density of aerosol_species
-    std::vector<real_type> mw_aerosol_sp, density_aero_sp;
+    std::vector<real_type> mw_aerosol_sp, density_aero_sp, kappa_aero_sp;
     int i_aero_sp=0;
     // loops over species, only make map from aerosol species.
     // we assume that map of gas species was previously created in kmd.
@@ -104,6 +105,7 @@ int AerosolModelData::initChem(YAML::Node &root,
             //  std::cout <<"molecular weight" << item["molecular weight [kg mol-1]"]<<"\n";
              mw_aerosol_sp.push_back(item["molecular weight [kg mol-1]"].as<real_type>());
              density_aero_sp.push_back(item["density [kg m-3]"].as<real_type>());
+             kappa_aero_sp.push_back(item["kappa"].as<real_type>());
            }
         } else
         {
@@ -147,7 +149,7 @@ int AerosolModelData::initChem(YAML::Node &root,
            //Note: that we do not use number of particles here.
            simpol_info_at.aerosol_sp_index = it_aero->second + nSpec_gas_;
            } else {
-           printf("species does not exit %s in reactants of SIMPOL_PHASE_TRANSFER reaction No \n", aero_sp);
+           printf("species does not exit %s in reactants of SIMPOL_PHASE_TRANSFER reaction No \n", aero_sp.c_str());
            TCHEM_CHECK_ERROR(true,"Yaml : Error when interpreting kinetic model" );
           }
 
@@ -157,7 +159,7 @@ int AerosolModelData::initChem(YAML::Node &root,
             //
             simpol_info_at.gas_sp_index = it_gas->second;
            } else {
-            printf("Error : species does not exit %s in reactants of SIMPOL_PHASE_TRANSFER\n", gas_sp);
+            printf("Error : species does not exit %s in reactants of SIMPOL_PHASE_TRANSFER\n", gas_sp.c_str());
             TCHEM_CHECK_ERROR(true,"Yaml : Error when interpreting aerosol model" );
           }
           simpol_info.push_back(simpol_info_at);
@@ -208,10 +210,13 @@ int AerosolModelData::initChem(YAML::Node &root,
     auto molecular_weights_host = molecular_weights_.view_host();
     aerosol_density_= real_type_1d_dual_view(do_not_init_tag("AMD::aerosol_density_"), nSpec_);
     auto aerosol_density_host = aerosol_density_.view_host();
+    aerosol_kappa_ = real_type_1d_dual_view(do_not_init_tag("AMD::kappa"), nSpec_);
+    auto aerosol_kappa_host = aerosol_kappa_.view_host();
     for (int i = 0; i < nSpec_; i++)
     {
       molecular_weights_host(i) = mw_aerosol_sp[i];
       aerosol_density_host(i) = density_aero_sp[i];
+      aerosol_kappa_host(i) = kappa_aero_sp[i];
     }
 
     molecular_weights_.modify_host();
@@ -223,6 +228,17 @@ int AerosolModelData::initChem(YAML::Node &root,
     simpol_params_.sync_device();
 
     return 0;
+}
+
+void AerosolModelData::setNumberofParticles(const ordinal_type number_of_particles)
+{
+  printf("-------------------------------------------------------\n");
+  printf("--------------------Warning----------------------------\n");
+  printf("Setting number of particles\n");
+  printf("Old value : %d \n", nParticles_);
+  nParticles_=number_of_particles;
+  printf("Current value : %d \n", nParticles_);
+  printf("-------------------------------------------------------\n");
 }
 
 void AerosolModelData::scenarioConditionParticles(const std::string &mechfile,
@@ -253,7 +269,7 @@ void AerosolModelData::scenarioConditionParticles(const std::string &mechfile,
       auto species_name = sp_cond.first.as<std::string>();
       auto it = aerosol_sp_name_idx_.find(species_name);
       if (it == aerosol_sp_name_idx_.end()) {
-          printf("species does not exit %s in reactants of SIMPOL_PHASE_TRANSFER reaction No \n", species_name);
+          printf("species does not exit %s in reactants of SIMPOL_PHASE_TRANSFER reaction No \n", species_name.c_str());
           TCHEM_CHECK_ERROR(true,"Yaml : Error when interpreting kinetic model" );
       }
       const ordinal_type species_idx = it->second;

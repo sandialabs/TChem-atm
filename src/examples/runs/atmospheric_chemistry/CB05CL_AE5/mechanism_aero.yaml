@@ -1,0 +1,14 @@
+NCAR-version:
+- absolute integration tolerance: 1.0e-05
+  density [kg m-3]: 1800.0
+  description: lumped hydrophobic particulate matter
+  kappa: 0.0
+  molecular weight [kg mol-1]: 0.41475
+  name: POA
+  note: Using C30H54 for molecular weight. TODO find best surrogate
+  num_ions: 0
+  phase: AEROSOL
+  type: CHEM_SPEC
+- maximum computational particles: 1 
+  name: my aero rep 2
+  type: AERO_REP_SINGLE_PARTICLE

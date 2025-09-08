@@ -1,9 +1,9 @@
 /* =====================================================================================
-TChem-atm version 1.0
-Copyright (2024) NTESS
+TChem-atm version 2.0.0
+Copyright (2025) NTESS
 https://github.com/sandialabs/TChem-atm
 
-Copyright 2024 National Technology & Engineering Solutions of Sandia, LLC (NTESS).
+Copyright 2025 National Technology & Engineering Solutions of Sandia, LLC (NTESS).
 Under the terms of Contract DE-NA0003525 with NTESS, the U.S. Government retains
 certain rights in this software.
 
@@ -12,8 +12,9 @@ and/or modify it under the terms of BSD 2-Clause License
 (https://opensource.org/licenses/BSD-2-Clause). A copy of the licese is also
 provided under the main directory
 
-Questions? Contact Cosmin Safta at <csafta@sandia.gov>, or
-         Mike Schmidt at <mjschm@sandia.gov>, or
+Questions? Contact Cosmin Safta at <csafta@sandia.gov> or,, or
+           Nicole Riemer at <nriemer@illinois.edu> or,
+           Matthew West at <mwest@illinois.edu>
          Oscar Diaz-Ibarra at <odiazib@sandia.gov>
 
 Sandia National Laboratories, New Mexico/Livermore, NM/CA, USA
@@ -139,7 +140,7 @@ int KineticModelData::initChemNCAR(YAML::Node &root, std::ostream& echofile) {
     // reacSidxHost(i, count) = it->second;
   } else {
     printf("Yaml : Error when interpreting kinetic model  !!!");
-    printf("M species does not exit; Note: Name of M species is hard-coded to M %d\n");
+    printf("M species does not exit; Note: Name of M species is hard-coded to M \n");
       exit(1);
   }
   }

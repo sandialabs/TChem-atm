@@ -15,6 +15,7 @@ TChem-atm requires the following third-party libraries:
     * [Sundials](https://github.com/LLNL/sundials.git)
   * [Gtest](https://github.com/google/googletest.git)
   * [Skywalker](https://github.com/eagles-project/skywalker.git)
+  * [Kokkos-kernels](https://github.com/kokkos/kokkos-kernels)
 
 These third-party libraries are submodules in TChem-atm.
 Thus, we can initialize them (i.e., download and update) using the following command:
@@ -39,27 +40,43 @@ To build/install with CUDA `ON` or `OFF`, use the flag:
 CUDA="ON" # Set to ON/OFF to compile TChem-atm with or without NVIDIA-GPUs support.
 ```
 
-Additionally, specify the root directory for installing/building the third-party libraries:
+To build/install with HIP `ON` or `OFF`, use the flag:
 
 ```bash
-ROOT=/path/to/tchem-atm/.
+HIP="ON" # Set to ON/OFF to compile TChem-atm with or without AMD-GPUs support.
 ```
 
-This script initializes the submodules and installs/builds the third-party libraries in the `$ROOT/HOST` or `$ROOT/DEVICE` directory, depending on whether `CUDA=OFF` or `CUDA=ON` is chosen.
-Since Kokkos can be installed/built with both CUDA `ON` or `OFF`, this script installs it in both `$ROOT/HOST` and `$ROOT/DEVICE`, while the other libraries are installed in `$ROOT/HOST`. Therefore, one must run this script using `CUDA=OFF` to install all third-party libraries and run it a second time with `CUDA=ON` if an NVIDIA GPU is available.
+Note that both CUDA and HIP cannot be enabled simultaneously.
+
+To enable OpenMP.
+
+```bash
+OPENMP="ON"
+```
+
+The following path specifies the location of the TChem-atm source code.
+
+```bash
+TCHEM_REPOSITORY_PATH=/path/to/tchem-atm/.
+```
+
+Determine whether to install OpenBLAS using this script.
+```bash
+INSTALL_OPENBLAS="ON"
+```
+
+This script initializes submodules and manages the installation/building of third-party libraries within the `$PWD/HOST`, `$PWD/CUDA`, or `$PWD/HIP` directories, based on the selected settings: `CUDA/HIP=OFF`, `CUDA=ON`, or `HIP=ON`. Given that Kokkos and Kokkos-kernels support installation/building with both `CUDA` and `HIP` enabled (`ON`) or disabled (`OFF`), the script ensures their deployment in both `$PWD/HOST` and the relevant GPU-specific directories (`$PWD/CUDA` or `$PWD/HIP`). Other libraries, however, are exclusively installed in `$PWD/HOST`. To accommodate all third-party libraries, execute this script initially with `CUDA=OFF`. For systems equipped with NVIDIA or AMD GPUs, a subsequent run with CUDA=`ON` or `HIP=ON`, respectively, is necessary to leverage GPU-specific installations.
+
 
 ## **Building and installing TChem-atm and Tines**
-The script `scripts/build_script.sh` builds and installs TChem-atm and Tines. Similarly to the script for third-party libraries, in `scripts/build_script.sh`, one must provide the same compiler information and CUDA flag.
 
-<!-- ```bash
-MY_CC=gcc # C++ compiler
-MY_CXX=g++ # C++ compiler
-MY_FC=gfortran # Fortran compiler
-```
-To build/install with CUDA ON (or OFF), use:
-
-`CUDA="ON" # Set to ON/OFF to compile TChem with NVIDIA-GPUs` -->
+The script `scripts/build_script.sh` builds and installs TChem-atm and Tines. Similarly to the script for third-party libraries, in `scripts/build_script.sh`, one must provide the same compiler information and CUDA/HIP flag.
 
 In addition, this script adds the option to turn `SACADO="ON"` or `SACADO="OFF"` to enable or disable the SACADO library's automatic differentiation capability.
 
-The installation path for the third-party libraries is specified by `INSTALL_BASE_HOST`, and `ROOT=/path/to/tchem-atm` is where TChem-atm and Tines are installed. If CUDA is `ON`, libraries will be installed in the `ROOT/DEVICE` directory. Otherwise, they will be installed in the `ROOT/HOST` directory.
+If OpenBLAS is included as part of a module; `USE_THIS_OPENBLAS="MODULE"`.
+
+The installation path for the third-party libraries is specified by `INSTALL_BASE_HOST`, and `ROOT=/path/to/tchem-atm` is where TChem-atm and Tines are installed. If CUDA is `ON`, libraries will be installed in the `ROOT/CUDA` directory. If HIP is `ON`, libraries will be installed in the `ROOT/HIP` directory. Otherwise, they will be installed in the `ROOT/HOST` directory.
+ 
+Finally, To select the build type `BUILD_TYPE`, choose either `DEBUG` or `RELEASE`.
+

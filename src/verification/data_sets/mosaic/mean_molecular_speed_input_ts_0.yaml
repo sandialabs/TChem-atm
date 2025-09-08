@@ -1,0 +1,7 @@
+
+TChem-atm:
+  function: mean_molecular_speed
+input:
+  fixed:
+    T_K: [  0.29142360000000002E+003]
+    MW: [  0.98000000000000000E+002]
